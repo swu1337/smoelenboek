@@ -227,6 +227,34 @@ class DirecteurController {
     public function createLeerlingAction() {
         $this->view->set('gebruiker', $this->model->getGebruiker());
         $this->view->set('klassen', $this->model->getKlassen());
+        
+        if($this->model->isPostLeeg()) {
+           $this->view->set("boodschap","Vul gegevens in van een nieuwe medewerker");
+        }
+        else {
+            switch($this->model->createData()) {
+                case IMAGE_FAILURE_SIZE_EXCEEDED:
+                    $this->view->set("boodschap", "Leerling is niet toegevoegd. Foto te groot. Kies kleinere foto.");
+                    $this->view->set('form_data',$_POST);
+                    break;
+                case IMAGE_FAILURE_TYPE:
+                    $this->view->set("boodschap", "Leerling is niet toegevoegd. foto niet van jpg, gif of png formaat.");
+                    $this->view->set('form_data',$_POST);
+                    break;
+                case REQUEST_FAILURE_DATA_INCOMPLETE:
+                    $this->view->set("boodschap", "Leerlingis niet toegevoegd. Niet alle vereiste data ingevuld.");
+                    $this->view->set('form_data',$_POST);
+                    break;
+                case REQUEST_FAILURE_DATA_INVALID:
+                    $this->view->set("boodschap", "Leerling is niet toegevoegd. Er is foutieve data ingestuurd (bv gebruikersnaam bestaat al).");
+                    $this->view->set('form_data',$_POST);
+                    break;
+                case REQUEST_SUCCESS:
+                    $this->view->set("boodschap", "Leerling is toegevoegd.");
+                    $this->forward("default");
+                    break;
+            }
+        }
     }
 
     public function createDocentAction() {

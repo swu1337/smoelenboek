@@ -9,7 +9,7 @@ include 'includes/menu.php';?>
                 <tr>
                     <td>Voorletter</td>
                     <td>
-                        <input type="text" name="vnaam" placeholder="vul verplicht de voornaam in" required="required" value="<?= !empty($form_data['vnaam'])?$form_data['vl']:'';?>" >
+                        <input type="text" name="vnaam" placeholder="vul verplicht de voornaam in" required="required" value="<?= !empty($form_data['vnaam'])?$form_data['vnaam']:'';?>" >
                     </td>
                 </tr>
                 <tr>

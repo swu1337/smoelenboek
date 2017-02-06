@@ -214,9 +214,73 @@ class DirecteurModel {
     public function createData() {
 
         switch (filter_input(INPUT_GET, 'prop')) {
-            case 'leerling':
+            case 'leerling':               
+                $gebruikersnaam = filter_input(INPUT_POST, 'gebrnaam');
+                $voorletter = filter_input(INPUT_POST, 'vnaam');
+                $achternaam = filter_input(INPUT_POST, 'anaam');
+                $email = filter_input(INPUT_POST,'email', FILTER_VALIDATE_EMAIL);
+                $telnummer = filter_input(INPUT_POST, 'telnummer');
+                $klas = filter_input(INPUT_POST, 'klas', FILTER_VALIDATE_INT);
+                $adres = filter_input(INPUT_POST, 'adres');
+                $plaats = filter_input(INPUT_POST, 'plaats');
+
+                //NOT-REQUIRED
+                $wachtwoord = filter_input(INPUT_POST, 'ww');
+                $tussenvoegsel = filter_input(INPUT_POST, 'tv');
+                
+                if($gebruikersnaam === null || $voorletter === null || $achternaam === null || $telnummer === null || $email === null || $klas === null || $adres === null || $plaats === null) {
+                    return REQUEST_FAILURE_DATA_INCOMPLETE;
+                }
+
+                if($email === false || $klas === false) {
+                    return REQUEST_FAILURE_DATA_INVALID;
+                }
+
+                if(empty($wachtwoord)) {
+                    $wachtwoord = 'qwerty';
+                }
+
+                $result = FOTO::isAfbeeldingGestuurd();
+                if($result === IMAGE_FAILURE_TYPE || $result === IMAGE_FAILURE_SIZE_EXCEEDED) {
+                    return $result;
+                }
+
+                if($result === IMAGE_NOTHING_UPLOADED) {
+                    $foto = IMAGE_DEFAULT;
+                } else {
+                    $foto = FOTO::getAfbeeldingNaam();
+                }
+
                 $sql = "INSERT IGNORE INTO `personen` (vnaam, tv, anaam, gebrnaam, ww, email, telnummer, foto, adres, plaats, klas_id, recht) 
                 VALUES (:vnaam, :tv, :anaam, :gebrnaam, :ww, :email, :telnummer, :foto, :adres, :plaats, :klas_id, :recht)";
+                
+                $stmnt = $this->db->prepare($sql);
+                $stmnt->bindParam(':gebruikersnaam', $gebruikersnaam);
+                $stmnt->bindParam(':wachtwoord', $wachtwoord);
+                $stmnt->bindParam(':voorletter', $voorletter);
+                $stmnt->bindParam(':tussenvoegsel', $tussenvoegsel);
+                $stmnt->bindParam(':achternaam', $achternaam);
+                $stmnt->bindParam(':extern', $extern);
+                $stmnt->bindParam(':intern', $intern);
+                $stmnt->bindParam(':email', $email);
+                $stmnt->bindParam(':foto', $foto);
+                $stmnt->bindParam(':adres', $adres);
+                $stmnt->bindParam(':plaats', $plaats);
+                
+                try {
+                    $stmnt->execute();
+                } catch(\PDOEXception $e) {
+                    return REQUEST_FAILURE_DATA_INVALID;
+                }
+
+                if($stmnt->rowCount() === 1) {
+                    if(!empty($foto)) {
+                        FOTO::slaAfbeeldingOp($foto);
+                    }
+                    return REQUEST_SUCCESS;
+                }
+
+                return REQUEST_FAILURE_DATA_INVALID;
                 break;
             case 'docent':
                 $sql = "DELETE FROM `personen` WHERE `personen`.`id`=:id";
@@ -254,82 +318,46 @@ class DirecteurModel {
                 return REQUEST_WRONG_URL;
                 break;
         }
-
-        //REQUIRED
-        $gebruikersnaam = filter_input(INPUT_POST, 'gebrnaam');
-        $voorletter = filter_input(INPUT_POST, 'vnaam');
-        $achternaam = filter_input(INPUT_POST, 'anaam');
-        $email = filter_input(INPUT_POST,'email', FILTER_VALIDATE_EMAIL);
-        $telnummer = filter_input(INPUT_POST, 'telnummer');
-
-        //NOT-REQUIRED
-        $wachtwoord = filter_input(INPUT_POST, 'ww');
-        $tussenvoegsel = filter_input(INPUT_POST, 'tv');
-        $mentorvan = filter_input(INPUT_POST, 'mentorvan');
-        $adres = filter_input(INPUT_POST, 'adres');
-        $plaats = filter_input(INPUT_POST, 'plaats');
-
-
-        //Leerling
-
-        if($gebruikersnaam === null || $voorletter === null || $achternaam === null || $telnummer || $email === null) {
-            return REQUEST_FAILURE_DATA_INCOMPLETE;
-        }
-
-        if($mentorvan === false || $email === false) {
-            return REQUEST_FAILURE_DATA_INVALID;
-        }
-
-        if(empty($wachtwoord)) {
-            $wachtwoord = 'qwerty';
-        }
-
-        $result = FOTO::isAfbeeldingGestuurd();
-        if($result === IMAGE_FAILURE_TYPE || $result === IMAGE_FAILURE_SIZE_EXCEEDED) {
-            return $result;
-        }
-
-        if($result === IMAGE_NOTHING_UPLOADED) {
-            $foto = IMAGE_DEFAULT;
-        } else {
-            $foto = FOTO::getAfbeeldingNaam();
-        }
-
-
-
-//        $sql="INSERT IGNORE INTO `contacten`  (gebruikersnaam,wachtwoord,voorletter,tussenvoegsel,achternaam,"
-//            . "extern,intern,email,foto,recht,afdelings_id)VALUES (:gebruikersnaam,:wachtwoord,:voorletter,:tussenvoegsel,:achternaam,"
-//            . ":extern,:intern,:email,:foto,'medewerker',:afdeling) ";
-
-        $stmnt = $this->db->prepare($sql);
-        $stmnt->bindParam(':gebruikersnaam', $gebruikersnaam);
-        $stmnt->bindParam(':wachtwoord', $wachtwoord);
-        $stmnt->bindParam(':voorletter', $voorletter);
-        $stmnt->bindParam(':tussenvoegsel', $tussenvoegsel);
-        $stmnt->bindParam(':achternaam', $achternaam);
-        $stmnt->bindParam(':extern', $extern);
-        $stmnt->bindParam(':intern', $intern);
-        $stmnt->bindParam(':email', $email);
-        $stmnt->bindParam(':foto', $foto);
-        $stmnt->bindParam(':adres', $adres);
-        $stmnt->bindParam(':plaats', $plaats);
-
-        try {
-            $stmnt->execute();
-        } catch(\PDOEXception $e) {
-            return REQUEST_FAILURE_DATA_INVALID;
-        }
-
-        if($stmnt->rowCount() === 1) {
-            if(!empty($foto)) {
-                FOTO::slaAfbeeldingOp($foto);
-            }
-
-            return REQUEST_SUCCESS;
-        }
-
-        return REQUEST_FAILURE_DATA_INVALID;
+//
+//        //REQUIRED
+//        $gebruikersnaam = filter_input(INPUT_POST, 'gebrnaam');
+//        $voorletter = filter_input(INPUT_POST, 'vnaam');
+//        $achternaam = filter_input(INPUT_POST, 'anaam');
+//        $email = filter_input(INPUT_POST,'email', FILTER_VALIDATE_EMAIL);
+//        $telnummer = filter_input(INPUT_POST, 'telnummer');
+//
+//        //NOT-REQUIRED
+//        $wachtwoord = filter_input(INPUT_POST, 'ww');
+//        $tussenvoegsel = filter_input(INPUT_POST, 'tv');
+//        $klas = filter_input(INPUT_POST, 'klas', FILTER_VALIDATE_INT);
+//        $adres = filter_input(INPUT_POST, 'adres');
+//        $plaats = filter_input(INPUT_POST, 'plaats');
+//        
+//
+//        if($gebruikersnaam === null || $voorletter === null || $achternaam === null || $telnummer === null || $email === null) {
+//            return REQUEST_FAILURE_DATA_INCOMPLETE;
+//        }
+//
+//        if($mentorvan === false || $email === false) {
+//            return REQUEST_FAILURE_DATA_INVALID;
+//        }
+//
+//        if(empty($wachtwoord)) {
+//            $wachtwoord = 'qwerty';
+//        }
+//
+//        $result = FOTO::isAfbeeldingGestuurd();
+//        if($result === IMAGE_FAILURE_TYPE || $result === IMAGE_FAILURE_SIZE_EXCEEDED) {
+//            return $result;
+//        }
+//
+//        if($result === IMAGE_NOTHING_UPLOADED) {
+//            $foto = IMAGE_DEFAULT;
+//        } else {
+//            $foto = FOTO::getAfbeeldingNaam();
+//        }
     }
+
 
     public function updateData() {
         switch (filter_input(INPUT_GET, 'prop')) {
