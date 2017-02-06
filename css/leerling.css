@@ -1,0 +1,40 @@
+.klas__name {
+    text-align: center;
+    padding: 20px 0 45px 0;
+}
+
+.klas-genoot__container {
+    width: 100%;
+}
+
+.klas-genoot__list  {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.klas-genoot__link {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.klas-genoot__list-item {
+    flex-basis: 20%;
+    max-width: 20%;
+    padding: 0 20px;
+    margin-bottom: 25px;
+}
+
+.klas-genoot__image {
+    width: 100%;
+    height: auto;
+}
+
+.klas-genoot__mentor-wrapper {
+    flex-basis: 20%;
+    max-width: 20%;
+    margin: auto;
+    margin-bottom: 25px;
+}
