@@ -366,5 +366,4 @@ class DirecteurController {
 
         $this->forward('default');
     }
-
 }

@@ -255,17 +255,17 @@ class DirecteurModel {
                 VALUES (:vnaam, :tv, :anaam, :gebrnaam, :ww, :email, :telnummer, :foto, :adres, :plaats, :klas_id, :recht)";
                 
                 $stmnt = $this->db->prepare($sql);
-                $stmnt->bindParam(':gebruikersnaam', $gebruikersnaam);
-                $stmnt->bindParam(':wachtwoord', $wachtwoord);
-                $stmnt->bindParam(':voorletter', $voorletter);
-                $stmnt->bindParam(':tussenvoegsel', $tussenvoegsel);
-                $stmnt->bindParam(':achternaam', $achternaam);
-                $stmnt->bindParam(':extern', $extern);
-                $stmnt->bindParam(':intern', $intern);
+                $stmnt->bindParam(':gebrnaam', $gebruikersnaam);
+                $stmnt->bindParam(':ww', $wachtwoord);
+                $stmnt->bindParam(':vnaam', $voorletter);
+                $stmnt->bindParam(':klas_id', $klas);
+                $stmnt->bindParam(':tv', $tussenvoegsel);
+                $stmnt->bindParam(':anaam', $achternaam);
                 $stmnt->bindParam(':email', $email);
-                $stmnt->bindParam(':foto', $foto);
                 $stmnt->bindParam(':adres', $adres);
                 $stmnt->bindParam(':plaats', $plaats);
+                $stmnt->bindParam(':telnummer', $telnummer);
+                $stmnt->bindParam(':foto', $foto);
                 
                 try {
                     $stmnt->execute();
@@ -283,7 +283,6 @@ class DirecteurModel {
                 return REQUEST_FAILURE_DATA_INVALID;
                 break;
             case 'docent':
-                $sql = "DELETE FROM `personen` WHERE `personen`.`id`=:id";
                 break;
             case 'klas':
                 $klasnaam = filter_input(INPUT_POST, 'klasnaam');
@@ -318,46 +317,7 @@ class DirecteurModel {
                 return REQUEST_WRONG_URL;
                 break;
         }
-//
-//        //REQUIRED
-//        $gebruikersnaam = filter_input(INPUT_POST, 'gebrnaam');
-//        $voorletter = filter_input(INPUT_POST, 'vnaam');
-//        $achternaam = filter_input(INPUT_POST, 'anaam');
-//        $email = filter_input(INPUT_POST,'email', FILTER_VALIDATE_EMAIL);
-//        $telnummer = filter_input(INPUT_POST, 'telnummer');
-//
-//        //NOT-REQUIRED
-//        $wachtwoord = filter_input(INPUT_POST, 'ww');
-//        $tussenvoegsel = filter_input(INPUT_POST, 'tv');
-//        $klas = filter_input(INPUT_POST, 'klas', FILTER_VALIDATE_INT);
-//        $adres = filter_input(INPUT_POST, 'adres');
-//        $plaats = filter_input(INPUT_POST, 'plaats');
-//        
-//
-//        if($gebruikersnaam === null || $voorletter === null || $achternaam === null || $telnummer === null || $email === null) {
-//            return REQUEST_FAILURE_DATA_INCOMPLETE;
-//        }
-//
-//        if($mentorvan === false || $email === false) {
-//            return REQUEST_FAILURE_DATA_INVALID;
-//        }
-//
-//        if(empty($wachtwoord)) {
-//            $wachtwoord = 'qwerty';
-//        }
-//
-//        $result = FOTO::isAfbeeldingGestuurd();
-//        if($result === IMAGE_FAILURE_TYPE || $result === IMAGE_FAILURE_SIZE_EXCEEDED) {
-//            return $result;
-//        }
-//
-//        if($result === IMAGE_NOTHING_UPLOADED) {
-//            $foto = IMAGE_DEFAULT;
-//        } else {
-//            $foto = FOTO::getAfbeeldingNaam();
-//        }
     }
-
 
     public function updateData() {
         switch (filter_input(INPUT_GET, 'prop')) {
