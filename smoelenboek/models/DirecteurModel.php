@@ -131,6 +131,14 @@ class DirecteurModel {
         return $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Klas')[0];
     }
 
+    public function getAlleLeerlingen() {
+        $sql = "SELECT `personen`.*, `klassen`.`naam` as \"klasnaam\" FROM `personen` LEFT JOIN `klassen` ON `personen`.`klas_id` = `klassen`.`id` WHERE `personen`.`recht` = 'leerling'";
+        $stmnt = $this->db->prepare($sql);
+        $stmnt->execute();
+
+        return $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Persoon');
+    }
+
     public function getKlasById($klas_id) {
         $sql = "SELECT * FROM `klassen` WHERE `klassen`.`id` = :id";
         $stmnt = $this->db->prepare($sql);
@@ -252,7 +260,7 @@ class DirecteurModel {
                 }
 
                 $sql = "INSERT IGNORE INTO `personen` (vnaam, tv, anaam, gebrnaam, ww, email, telnummer, foto, adres, plaats, klas_id, recht) 
-                VALUES (:vnaam, :tv, :anaam, :gebrnaam, :ww, :email, :telnummer, :foto, :adres, :plaats, :klas_id, :recht)";
+                VALUES (:vnaam, :tv, :anaam, :gebrnaam, :ww, :email, :telnummer, :foto, :adres, :plaats, :klas_id, 'leerling')";
                 
                 $stmnt = $this->db->prepare($sql);
                 $stmnt->bindParam(':gebrnaam', $gebruikersnaam);

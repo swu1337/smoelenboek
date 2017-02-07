@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `personen` (
     `ww` VARCHAR(30) NOT NULL,
     `email` VARCHAR(30) NOT NULL,
     `telnummer` VARCHAR(15) NOT NULL,
-    `foto` VARCHAR(30) NOT NULL DEFAULT 'default.jpg',
+    `foto` VARCHAR(255) NOT NULL DEFAULT 'default.jpg',
     `opmerkingen` TEXT DEFAULT NULL,
     `adres` VARCHAR(30) DEFAULT NULL,
     `plaats` VARCHAR(30) DEFAULT NULL,

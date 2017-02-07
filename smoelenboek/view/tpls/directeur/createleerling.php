@@ -31,7 +31,7 @@ include 'includes/menu.php';?>
                 <tr >
                     <td>Wachtwoord:</td>
                     <td>
-                        <input type="text" name="ww" placeholder='kies eventueel een ww default "qwerty"' value="<?= !empty($form_data['ww']) ? $form_data['ww'] : '';?>" >
+                        <input type="password" name="ww" placeholder='kies eventueel een ww default "qwerty"' value="<?= !empty($form_data['ww']) ? $form_data['ww'] : '';?>" >
                     </td>
                 </tr>
                 <tr>
@@ -49,23 +49,23 @@ include 'includes/menu.php';?>
                 <tr>
                     <td>Adres</td>
                     <td>
-                        <input type="text" name="adres" placeholder="geef verplicht een adres op" value="<?= !empty($form_data['adres']) ? $form_data['adres'] : '';?>">
+                        <input type="text" name="adres" placeholder="geef verplicht een adres op" required value="<?= !empty($form_data['adres']) ? $form_data['adres'] : '';?>">
                     </td>
                 </tr>
                 <tr>
                     <td>Plaats:</td>
                     <td>
-                        <input type="text" name="plaats" placeholder="geef verplicht een plaats op" value="<?= !empty($form_data['plaats']) ? $form_data['plaats'] : '';?>">
+                        <input type="text" name="plaats" placeholder="geef verplicht een plaats op" required value="<?= !empty($form_data['plaats']) ? $form_data['plaats'] : '';?>">
                     </td>
                 </tr>
                 <tr>
                     <td>Klas:</td>
                     <td>
-                        <select name="klas">
+                        <select required name="klas">
                             <?php foreach ($klassen as $klas) :?>
                                 <option value="<?= $klas->getId() ;?>"><?= $klas->getNaam() ;?>
                                 </option>
-                            <?php endforeach; ?>
+                            <?php endforeach; unset($klas); ?>
                         </select>
                     </td>
                 </tr>

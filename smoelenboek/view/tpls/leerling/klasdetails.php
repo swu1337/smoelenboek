@@ -11,7 +11,7 @@ include 'includes/menu.php';?>
                 <ul class="klas-genoot__list">
                     <?php foreach($klasgenoten as $klasgenoot): ?>
                     <li class="klas-genoot__list-item">
-                        <img class="klas-genoot__image" src="img/personen/<?= $gebruiker->getFoto()?>">
+                        <img class="klas-genoot__image" src="img/personen/<?= $klasgenoot->getFoto()?>">
                         <figure class="klas-genoot__name"><?= $klasgenoot->getNaam(); ?></figure>
                     </li>
                     <?php endforeach; ?>

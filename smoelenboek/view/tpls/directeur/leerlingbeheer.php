@@ -20,7 +20,7 @@ include 'includes/menu.php';?>
                 <tr>
                     <td><?= $leerling->getId(); ?></td>
                     <td><?= $leerling->getNaam(); ?></td>
-                    <td><?= $leerling->getKlas_id(); ?></td>
+                    <td><?= $leerling->klasnaam; ?></td>
                     <td><?= $leerling->getEmail(); ?></td>
                     <td><?= $leerling->getTelefoon(); ?></td>
                     <td><?= $leerling->getNaam(); ?></td>

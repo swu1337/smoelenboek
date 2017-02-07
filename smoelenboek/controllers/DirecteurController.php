@@ -205,7 +205,7 @@ class DirecteurController {
     public function leerlingbeheerAction() {
         $this->view->set('gebruiker', $this->model->getGebruiker());
         $this->view->set('klassen', $this->model->getKlassen());
-        $this->view->set('leerlingen', $this->model->getLeerlingen());
+        $this->view->set('leerlingen', $this->model->getAlleLeerlingen());
     }
 
     public function docentbeheerAction() {

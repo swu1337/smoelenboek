@@ -10,6 +10,7 @@
 .idea/tasks.xml
 
 # Sensitive or high-churn files:
+.idea/
 .idea/dataSources/
 .idea/dataSources.ids
 .idea/dataSources.xml
@@ -117,3 +118,6 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.gitignore.io/api/intellij,netbeans,visualstudiocode,phpstorm,windows
+
+# Project ignore personen img uploading
+img/personen/
