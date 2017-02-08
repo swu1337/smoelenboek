@@ -5,11 +5,11 @@ include 'includes/menu.php';?>
         <form  method="post" enctype="multipart/form-data" id="gebruiker_form">
             <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
             <table>
-                <caption>Toevoegen vanaam nieuwe Docent voor school voor ICT</caption>
+                <caption>Toevoegen van nieuwe Docent voor school voor ICT</caption>
                 <tr>
                     <td>Voorletter</td>
                     <td>
-                        <input type="text" name="vnaam" placeholder="vul verplicht de voornaam in" required="required" value="<?= !empty($form_data['vnaam'])?$form_data['vl']:'';?>" >
+                        <input type="text" name="vnaam" placeholder="vul verplicht de voornaam in" required="required" value="<?= !empty($form_data['vnaam'])?$form_data['vnaam']:'';?>" >
                     </td>
                 </tr>
                 <tr>
@@ -31,7 +31,7 @@ include 'includes/menu.php';?>
                 <tr >
                     <td>Wachtwoord:</td>
                     <td>
-                        <input type="text" name="ww" placeholder='kies eventueel een ww default "qwerty"' value="<?= !empty($form_data['ww']) ? $form_data['ww'] : '';?>" >
+                        <input type="password" name="ww" placeholder='kies eventueel een ww default "qwerty"' value="<?= !empty($form_data['ww']) ? $form_data['ww'] : '';?>" >
                     </td>
                 </tr>
                 <tr>
@@ -56,17 +56,6 @@ include 'includes/menu.php';?>
                     <td>Plaats:</td>
                     <td>
                         <input type="text" name="plaats" placeholder="geef verplicht een plaats op" value="<?= !empty($form_data['plaats']) ? $form_data['plaats'] : '';?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Mentor:</td>
-                    <td>
-                        <select name="mentorvan">
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="mercedes">Mercedes</option>
-                            <option value="audi">Audi</option>
-                        </select>
                     </td>
                 </tr>
                 <tr>

@@ -236,7 +236,7 @@ class DirecteurModel {
                 $wachtwoord = filter_input(INPUT_POST, 'ww');
                 $tussenvoegsel = filter_input(INPUT_POST, 'tv');
                 
-                if($gebruikersnaam === null || $voorletter === null || $achternaam === null || $telnummer === null || $email === null || $klas === null || $adres === null || $plaats === null) {
+                if(in_array(null, [$gebruikersnaam, $voorletter, $achternaam, $telnummer, $email, $klas, $adres, $plaats])) {
                     return REQUEST_FAILURE_DATA_INCOMPLETE;
                 }
 
@@ -291,6 +291,72 @@ class DirecteurModel {
                 return REQUEST_FAILURE_DATA_INVALID;
                 break;
             case 'docent':
+                $gebruikersnaam = filter_input(INPUT_POST, 'gebrnaam');
+                $voorletter = filter_input(INPUT_POST, 'vnaam');
+                $achternaam = filter_input(INPUT_POST, 'anaam');
+                $email = filter_input(INPUT_POST,'email', FILTER_VALIDATE_EMAIL);
+                $telnummer = filter_input(INPUT_POST, 'telnummer');
+
+                //NOT-REQUIRED
+                $adres = filter_input(INPUT_POST, 'adres');
+                $plaats = filter_input(INPUT_POST, 'plaats');
+                $wachtwoord = filter_input(INPUT_POST, 'ww');
+                $tussenvoegsel = filter_input(INPUT_POST, 'tv');
+                $klas = null;
+                      
+                if(in_array(null, [$gebruikersnaam, $voorletter, $achternaam, $telnummer, $email])) {
+                    return REQUEST_FAILURE_DATA_INCOMPLETE;
+                }
+
+                if($email === false) {
+                    return REQUEST_FAILURE_DATA_INVALID;
+                }
+
+                if(empty($wachtwoord)) {
+                    $wachtwoord = 'qwerty';
+                }
+
+                $result = FOTO::isAfbeeldingGestuurd();
+                if($result === IMAGE_FAILURE_TYPE || $result === IMAGE_FAILURE_SIZE_EXCEEDED) {
+                    return $result;
+                }
+
+                if($result === IMAGE_NOTHING_UPLOADED) {
+                    $foto = IMAGE_DEFAULT;
+                } else {
+                    $foto = FOTO::getAfbeeldingNaam();
+                }
+
+                $sql = "INSERT IGNORE INTO `personen` (vnaam, tv, anaam, gebrnaam, ww, email, telnummer, foto, adres, plaats, klas_id, recht) 
+                VALUES (:vnaam, :tv, :anaam, :gebrnaam, :ww, :email, :telnummer, :foto, :adres, :plaats, :klas_id, 'docent')";
+                
+                $stmnt = $this->db->prepare($sql);
+                $stmnt->bindParam(':gebrnaam', $gebruikersnaam);
+                $stmnt->bindParam(':ww', $wachtwoord);
+                $stmnt->bindParam(':vnaam', $voorletter);
+                $stmnt->bindParam(':klas_id', $klas);
+                $stmnt->bindParam(':tv', $tussenvoegsel);
+                $stmnt->bindParam(':anaam', $achternaam);
+                $stmnt->bindParam(':email', $email);
+                $stmnt->bindParam(':adres', $adres);
+                $stmnt->bindParam(':plaats', $plaats);
+                $stmnt->bindParam(':telnummer', $telnummer);
+                $stmnt->bindParam(':foto', $foto);
+                
+                try {
+                    $stmnt->execute();
+                } catch(\PDOEXception $e) {
+                    return REQUEST_FAILURE_DATA_INVALID;
+                }
+
+                if($stmnt->rowCount() === 1) {
+                    if(!empty($foto)) {
+                        FOTO::slaAfbeeldingOp($foto);
+                    }
+                    return REQUEST_SUCCESS;
+                }
+
+                return REQUEST_FAILURE_DATA_INVALID;
                 break;
             case 'klas':
                 $klasnaam = filter_input(INPUT_POST, 'klasnaam');
@@ -330,6 +396,57 @@ class DirecteurModel {
     public function updateData() {
         switch (filter_input(INPUT_GET, 'prop')) {
             case 'leerling':
+                $gebruikersnaam = filter_input(INPUT_POST, 'gebrnaam');
+                $voorletter = filter_input(INPUT_POST, 'vnaam');
+                $achternaam = filter_input(INPUT_POST, 'anaam');
+                $email = filter_input(INPUT_POST,'email', FILTER_VALIDATE_EMAIL);
+                $telnummer = filter_input(INPUT_POST, 'telnummer');
+                $klas = filter_input(INPUT_POST, 'klas', FILTER_VALIDATE_INT);
+                $adres = filter_input(INPUT_POST, 'adres');
+                $plaats = filter_input(INPUT_POST, 'plaats');
+
+                //NOT-REQUIRED
+                $wachtwoord = filter_input(INPUT_POST, 'ww');
+                $tussenvoegsel = filter_input(INPUT_POST, 'tv');
+                
+                if(in_array(null, [$gebruikersnaam, $voorletter, $achternaam, $telnummer, $email, $klas, $adres, $plaats])) {
+                    return REQUEST_FAILURE_DATA_INCOMPLETE;
+                }
+
+                if($email === false || $klas === false) {
+                    return REQUEST_FAILURE_DATA_INVALID;
+                }
+
+                if(empty($wachtwoord)) {
+                    $wachtwoord = 'qwerty';
+                }
+
+                
+                $sql = "INSERT IGNORE INTO `personen` (vnaam, tv, anaam, gebrnaam, ww, email, telnummer, adres, plaats, klas_id) 
+                VALUES (:vnaam, :tv, :anaam, :gebrnaam, :ww, :email, :telnummer, :adres, :plaats, :klas_id)";
+                
+                $stmnt = $this->db->prepare($sql);
+                $stmnt->bindParam(':gebrnaam', $gebruikersnaam);
+                $stmnt->bindParam(':ww', $wachtwoord);
+                $stmnt->bindParam(':vnaam', $voorletter);
+                $stmnt->bindParam(':tv', $tussenvoegsel);
+                $stmnt->bindParam(':anaam', $achternaam);
+                $stmnt->bindParam(':email', $email);
+                $stmnt->bindParam(':adres', $adres);
+                $stmnt->bindParam(':plaats', $plaats);
+                $stmnt->bindParam(':telnummer', $telnummer);
+                
+                try {
+                    $stmnt->execute();
+                } catch(\PDOEXception $e) {
+                    return REQUEST_FAILURE_DATA_INVALID;
+                }
+
+                if($stmnt->rowCount() === 1) {
+                    return REQUEST_SUCCESS;
+                }
+
+                return REQUEST_FAILURE_DATA_INVALID;
                 break;
             case 'docent':
                 break;

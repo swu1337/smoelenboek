@@ -5,7 +5,7 @@ include 'includes/menu.php';?>
         <form  method="post" enctype="multipart/form-data" id="gebruiker_form">
             <input type="hidden" name="MAX_FILE_SIZE" value="1000000" />
             <table>
-                <caption>Toevoegen vanaam nieuwe Leerling voor school voor ICT</caption>
+                <caption>Toevoegen van nieuwe Leerling voor school voor ICT</caption>
                 <tr>
                     <td>Voorletter</td>
                     <td>
