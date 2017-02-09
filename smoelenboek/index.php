@@ -15,24 +15,20 @@ function __autoload($className) {
 // }
 
 $control = !empty(filter_input(INPUT_GET, 'control')) ? filter_input(INPUT_GET, 'control') : 'bezoeker';
-var_dump($control);
-die();
+
+
 $action = filter_input(INPUT_GET, 'action');
 
-if($action===NULL)
-{
+if($action === NULL) {
     $action = 'default';
 }
 
 $controllerName = 'smoelenboek\controllers'.'\\'.ucfirst($control).'Controller';
 
-if(class_exists($controllerName))
-{
+if(class_exists($controllerName)) {
     $myControl = new $controllerName($control, $action);
     $myControl->execute();
-}
-else
-{
-    $myControl= new smoelenboek\controllers\BezoekerController('bezoeker','default','er is iets mis gegegaan, de door jou gebruikte url wordt niet begrepen');
+} else {
+    $myControl= new smoelenboek\controllers\BezoekerController('bezoeker','default','Er is iets mis gegegaan, de door jou gebruikte url wordt niet begrepen');
     $myControl->execute();
 }
