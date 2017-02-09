@@ -53,7 +53,9 @@ class DirecteurModel {
         $stmnt->bindParam(':mentor_id', $mentor_id);
         $stmnt->bindParam(':klas_id', $klas_id);
         $stmnt->bindParam(':klasnaam', $klasnaam);
-        $stmnt->execute();   
+        $stmnt->execute();
+        
+        return $stmnt;
     }
 
     public function isGerechtigd() {
@@ -518,9 +520,8 @@ class DirecteurModel {
                 if($klasnaam === false || $mentor === false || $klas_id === false) {
                     return REQUEST_FAILURE_DATA_INVALID;
                 }
-                
+
                 try {
-                    
                     //Check if the selected docent is already a mentor
                     if($this->isMentor($mentor)) {
                         $this->removeMentorFromKlas($this->getKlasByMentor($mentor)->getId());
