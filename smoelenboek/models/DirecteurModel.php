@@ -513,11 +513,11 @@ class DirecteurModel {
                 $mentor = filter_input(INPUT_POST, 'mentorvan', FILTER_VALIDATE_INT);
                 $klas_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
                 
-                if($klasnaam === NULL || $mentor === NULL || $klas_id === NULL) {
+                if(in_array(null, [$klasnaam, $mentor, $klas_id])) {
                     return REQUEST_FAILURE_DATA_INCOMPLETE;
                 }
 
-                if($klasnaam === false || $mentor === false || $klas_id === false) {
+                if(in_array(false, [$klasnaam,$mentor, $klas_id])) {
                     return REQUEST_FAILURE_DATA_INVALID;
                 }
 
@@ -654,7 +654,7 @@ class DirecteurModel {
         $nww2 = filter_input(INPUT_POST, 'nww2');
         $hww = $this->getGebruiker()->getWachtwoord();
 
-        if(empty($nww1) || empty($nww2) || empty($ww)) {
+        if(in_array(null, [$nww1, $nww2, $ww])) {
             return REQUEST_FAILURE_DATA_INCOMPLETE;
         }
 
