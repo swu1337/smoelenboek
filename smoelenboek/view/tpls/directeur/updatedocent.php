@@ -9,7 +9,7 @@ include 'includes/menu.php';?>
                 <tr>
                     <td>Voorletter</td>
                     <td>
-                        <input type="text" name="vnaam" placeholder="vul verplicht de voornaam in" required="required" value="<?= !empty($docent->getVoornaam()) ? $docent->getVoornaam() : '';?>" >
+                        <input type="text" name="vnaam" placeholder="vul verplicht de voornaam in" required value="<?= !empty($docent->getVoornaam()) ? $docent->getVoornaam() : '';?>" >
                     </td>
                 </tr>
                 <tr>
@@ -19,37 +19,37 @@ include 'includes/menu.php';?>
                 </tr>
                 <tr>
                     <td>Achternaam:</td>
-                    <td><input type="text" name="anaam" placeholder="vul verplicht de achternaam in" required="required" value="<?= !empty($docent->getAchternaam()) ? $docent->getAchternaam() : '';?>">
+                    <td><input type="text" name="anaam" placeholder="vul verplicht de achternaam in" required value="<?= !empty($docent->getAchternaam()) ? $docent->getAchternaam() : '';?>">
                     </td>
                 </tr>
                 <tr>
                     <td>Gebruikersnaam:</td>
                     <td>
-                        <input type="text" placeholder="kies verplicht een gebruikersnaam" name="gebrnaam" required="required" value="<?= !empty($docent->getGebruikersnaam()) ? $docent->getGebruikersnaam() : '';?>">
+                        <input type="text" placeholder="kies verplicht een gebruikersnaam" name="gebrnaam" required value="<?= !empty($docent->getGebruikersnaam()) ? $docent->getGebruikersnaam() : '';?>">
                     </td>
                 </tr>
                 <tr>
                     <td>Email:</td>
                     <td>
-                        <input type="email" name="email" placeholder="geef verplicht een email op" required="required" value="<?= !empty($docent->getEmail()) ? $docent->getEmail() : '';?>">
+                        <input type="email" name="email" placeholder="geef verplicht een email op" required value="<?= !empty($docent->getEmail()) ? $docent->getEmail() : '';?>">
                     </td>
                 </tr>
                 <tr>
                     <td>Telefoon nummer:</td>
                     <td>
-                        <input type="text" name="telnummer" placeholder="geef verplicht een telefoon nummer op" required="required" value="<?= !empty($docent->getTelefoon()) ? $docent->getTelefoon() : '';?>">
+                        <input type="text" name="telnummer" placeholder="geef verplicht een telefoon nummer op" required value="<?= !empty($docent->getTelefoon()) ? $docent->getTelefoon() : '';?>">
                     </td>
                 </tr>
                 <tr>
                     <td>Adres</td>
                     <td>
-                        <input type="text" name="adres" placeholder="geef verplicht een adres op" required value="<?= !empty($docent->getAdres()) ? $docent->getAdres() : '';?>">
+                        <input type="text" name="adres" placeholder="geef een adres op" value="<?= !empty($docent->getAdres()) ? $docent->getAdres() : '';?>">
                     </td>
                 </tr>
                 <tr>
                     <td>Plaats:</td>
                     <td>
-                        <input type="text" name="plaats" placeholder="geef verplicht een plaats op" required value="<?= !empty($docent->getPlaats()) ? $docent->getPlaats() : '';?>">
+                        <input type="text" name="plaats" placeholder="geef een plaats op" value="<?= !empty($docent->getPlaats()) ? $docent->getPlaats() : '';?>">
                     </td>
                 </tr>
             </table>
