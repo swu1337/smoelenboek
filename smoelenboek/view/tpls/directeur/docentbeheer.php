@@ -24,7 +24,7 @@ include 'includes/menu.php';?>
                     <td><?= $docent->getEmail();?></td>
                     <td><?= $docent->getTelefoon();?></td>
                     <td title="reset het wachtwoord van dit contact naar qwerty"><a href='?control=directeur&action=reset&id=<?= $docent->getId();?>'><img src="img/resetww.png"></a></td>
-                    <td title="bewerk de contact gegevens van dit contact"><a href='?control=directeur&action=update&id=<?= $docent->getId();?>&prop=docent'><img src="img/bewerk.png"></a></td>
+                    <td title="bewerk de contact gegevens van dit contact"><a href='?control=directeur&action=updatedocent&id=<?= $docent->getId();?>&prop=docent'><img src="img/bewerk.png"></a></td>
                     <td title="verwijder dit contact definitief"><a href='?control=directeur&action=delete&id=<?= $docent->getId();?>&prop=docent'><img src="img/verwijder.png"></a></td>
                 </tr>
                 <?php endforeach;?>

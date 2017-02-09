@@ -25,7 +25,7 @@ include 'includes/menu.php';?>
                     <td><?= $leerling->getTelefoon(); ?></td>
                     <td><?= $leerling->getNaam(); ?></td>
 
-                    <td title="bewerk de contact gegevens van dit contact"><a href='?control=directeur&action=update&id=<?= $leerling->getId();?>&prop=leerling'><img src="img/bewerk.png"></a></td>
+                    <td title="bewerk de contact gegevens van dit contact"><a href='?control=directeur&action=updateleerling&id=<?= $leerling->getId();?>&prop=leerling'><img src="img/bewerk.png"></a></td>
                     <td title="verwijder dit contact definitief"><a href='?control=directeur&action=delete&id=<?= $leerling->getId();?>&prop=leerling'><img src="img/verwijder.png"></a></td>
                 </tr>
                 <?php endforeach;?>

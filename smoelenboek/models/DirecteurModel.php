@@ -220,7 +220,6 @@ class DirecteurModel {
     }
 
     public function createData() {
-
         switch (filter_input(INPUT_GET, 'prop')) {
             case 'leerling':               
                 $gebruikersnaam = filter_input(INPUT_POST, 'gebrnaam');
@@ -393,7 +392,7 @@ class DirecteurModel {
         }
     }
 
-    public function updateData() {
+    public function updateData($object = null) {
         switch (filter_input(INPUT_GET, 'prop')) {
             case 'leerling':
                 $gebruikersnaam = filter_input(INPUT_POST, 'gebrnaam');
@@ -404,10 +403,11 @@ class DirecteurModel {
                 $klas = filter_input(INPUT_POST, 'klas', FILTER_VALIDATE_INT);
                 $adres = filter_input(INPUT_POST, 'adres');
                 $plaats = filter_input(INPUT_POST, 'plaats');
-
+                $id = $object->getId();
+                
                 //NOT-REQUIRED
-                $wachtwoord = filter_input(INPUT_POST, 'ww');
                 $tussenvoegsel = filter_input(INPUT_POST, 'tv');
+                $opmerkingen = filter_input(INPUT_POST, 'opmerkingen');
                 
                 if(in_array(null, [$gebruikersnaam, $voorletter, $achternaam, $telnummer, $email, $klas, $adres, $plaats])) {
                     return REQUEST_FAILURE_DATA_INCOMPLETE;
@@ -416,29 +416,34 @@ class DirecteurModel {
                 if($email === false || $klas === false) {
                     return REQUEST_FAILURE_DATA_INVALID;
                 }
-
-                if(empty($wachtwoord)) {
-                    $wachtwoord = 'qwerty';
-                }
-
                 
-                $sql = "INSERT IGNORE INTO `personen` (vnaam, tv, anaam, gebrnaam, ww, email, telnummer, adres, plaats, klas_id) 
-                VALUES (:vnaam, :tv, :anaam, :gebrnaam, :ww, :email, :telnummer, :adres, :plaats, :klas_id)";
+                $sql = "UPDATE `personen` SET vnaam = :vnaam, tv = :tv, anaam = :anaam, gebrnaam = :gebrnaam, email = :email, telnummer = :telnummer, adres = :adres, plaats = :plaats, klas_id = :klas_id, opmerkingen = :opmerkingen WHERE `personen`.`id` = :id";
+                
+                if(!empty($object) && $object->getGebruikersnaam() === $gebruikersnaam) {
+                    $sql = "UPDATE `personen` SET vnaam = :vnaam, tv = :tv, anaam = :anaam, email = :email, telnummer = :telnummer, klas_id = :klas_id, adres = :adres, plaats = :plaats, opmerkingen = :opmerkingen WHERE `personen`.`id` = :id";
+                }
                 
                 $stmnt = $this->db->prepare($sql);
-                $stmnt->bindParam(':gebrnaam', $gebruikersnaam);
-                $stmnt->bindParam(':ww', $wachtwoord);
+                
+                if(!empty($object)  && $object->getGebruikersnaam() !== $gebruikersnaam) {
+                    $stmnt->bindParam(':gebrnaam', $gebruikersnaam);
+                }
+                
+                $stmnt->bindParam(':id', $id);
                 $stmnt->bindParam(':vnaam', $voorletter);
                 $stmnt->bindParam(':tv', $tussenvoegsel);
                 $stmnt->bindParam(':anaam', $achternaam);
                 $stmnt->bindParam(':email', $email);
+                $stmnt->bindParam(':telnummer', $telnummer);
+                $stmnt->bindParam(':klas_id', $klas);
                 $stmnt->bindParam(':adres', $adres);
                 $stmnt->bindParam(':plaats', $plaats);
-                $stmnt->bindParam(':telnummer', $telnummer);
+                $stmnt->bindParam(':opmerkingen', $opmerkingen);
                 
                 try {
                     $stmnt->execute();
                 } catch(\PDOEXception $e) {
+                    var_dump($e);
                     return REQUEST_FAILURE_DATA_INVALID;
                 }
 
@@ -449,6 +454,57 @@ class DirecteurModel {
                 return REQUEST_FAILURE_DATA_INVALID;
                 break;
             case 'docent':
+                $gebruikersnaam = filter_input(INPUT_POST, 'gebrnaam');
+                $voorletter = filter_input(INPUT_POST, 'vnaam');
+                $achternaam = filter_input(INPUT_POST, 'anaam');
+                $email = filter_input(INPUT_POST,'email', FILTER_VALIDATE_EMAIL);
+                $telnummer = filter_input(INPUT_POST, 'telnummer');
+                $id = $object->getId();
+                
+                //NOT-REQUIRED
+                $tussenvoegsel = filter_input(INPUT_POST, 'tv');
+                $adres = filter_input(INPUT_POST, 'adres');
+                $plaats = filter_input(INPUT_POST, 'plaats');
+                
+                if(in_array(null, [$gebruikersnaam, $voorletter, $achternaam, $telnummer, $email])) {
+                    return REQUEST_FAILURE_DATA_INCOMPLETE;
+                }
+
+                if($email === false) {
+                    return REQUEST_FAILURE_DATA_INVALID;
+                }
+                
+                $sql = "UPDATE `personen` SET vnaam = :vnaam, tv = :tv, anaam = :anaam, gebrnaam = :gebrnaam, email = :email, telnummer = :telnummer, adres = :adres, plaats = :plaats WHERE `personen`.`id` = :id";
+                
+                if(!empty($object) && $object->getGebruikersnaam() === $gebruikersnaam) {
+                    $sql = "UPDATE `personen` SET vnaam = :vnaam, tv = :tv, anaam = :anaam, email = :email, telnummer = :telnummer, adres = :adres, plaats = :plaats WHERE `personen`.`id` = :id";
+                }
+                
+                $stmnt = $this->db->prepare($sql);
+                
+                if(!empty($object)  && $object->getGebruikersnaam() !== $gebruikersnaam) {
+                    $stmnt->bindParam(':gebrnaam', $gebruikersnaam);
+                }
+                
+                $stmnt->bindParam(':id', $id);
+                $stmnt->bindParam(':vnaam', $voorletter);
+                $stmnt->bindParam(':tv', $tussenvoegsel);
+                $stmnt->bindParam(':anaam', $achternaam);
+                $stmnt->bindParam(':email', $email);
+                $stmnt->bindParam(':telnummer', $telnummer);
+                $stmnt->bindParam(':adres', $adres);
+                $stmnt->bindParam(':plaats', $plaats);
+                
+                try {
+                    $stmnt->execute();
+                } catch(\PDOEXception $e) {
+                    var_dump($e);
+                    return REQUEST_FAILURE_DATA_INVALID;
+                }
+
+                if($stmnt->rowCount() === 1) {
+                    return REQUEST_SUCCESS;
+                }
                 break;
             case 'klas':
                 $klasnaam = filter_input(INPUT_POST, 'klasnaam');
