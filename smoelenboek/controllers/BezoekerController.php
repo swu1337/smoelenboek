@@ -59,8 +59,7 @@ class BezoekerController {
         if($this->model->isPostLeeg()) {
             $this->view->set("boodschap","Vul uw gegevens in");
         } else {
-            $resultInlog = $this->model->controleerInloggen();
-            switch($resultInlog) {
+            switch($this->model->controleerInloggen()) {
                 case REQUEST_SUCCESS:
                     $this->view->set("boodschap","Welkom op de smoelenboek van ROC Mondriaan, Veel Kijkplezier!");
                     $recht = $this->model->getGebruiker()->getRecht();
@@ -76,17 +75,14 @@ class BezoekerController {
             }
         }
 
-        $directeur = $this->model->getDirecteur();
-        $this->view->set("directeur", $directeur);
+        $this->view->set("directeur", $this->model->getDirecteur());
     }
 
     private function defaultAction() {
-       $directeur = $this->model->getDirecteur();
-       $this->view->set("directeur", $directeur);
+       $this->view->set("directeur", $this->model->getDirecteur());
     }
 
     private function directeurAction() {
-        $directeur = $this->model->getDirecteur();
-        $this->view->set("directeur", $directeur);
+        $this->view->set("directeur", $this->model->getDirecteur());
     }
 }

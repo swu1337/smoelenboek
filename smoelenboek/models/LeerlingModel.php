@@ -1,8 +1,6 @@
 <?php
 namespace smoelenboek\models;
 
-use smoelenboek\utils\Foto as FOTO;
-
 class LeerlingModel {
     private $control;
     private $action;
@@ -56,7 +54,7 @@ class LeerlingModel {
         $sql = "SELECT * FROM `klassen`";
         $stmnt = $this->db->prepare($sql);
         $stmnt->execute();
-        return $stmnt->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Klas');
+        return $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Klas');
     }
 
     public function getKlasByLeerling($id) {
@@ -98,9 +96,9 @@ class LeerlingModel {
         $sql = "SELECT * FROM `personen` WHERE `personen`.`id`=:gebruiker_id";
         $stmnt = $this->db->prepare($sql);
         $stmnt->bindParam(':gebruiker_id', $gebruiker_id);
-        $stmnt->setFetchMode(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Persoon');
+        $stmnt->setFetchMode(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Persoon');
         $stmnt->execute();
-        $_SESSION['gebruiker']= $stmnt->fetch(\PDO::FETCH_CLASS);
+        $_SESSION['gebruiker'] = $stmnt->fetch(\PDO::FETCH_CLASS);
     }
 
     public function wijzigGegevens($id) {
@@ -159,16 +157,17 @@ class LeerlingModel {
         }
 
 
-       $sql = "UPDATE `personen` SET `personen`.`ww` = :nww WHERE `personen`.`id`= :id";
-       $stmnt = $this->db->prepare($sql);
-       $stmnt->bindParam(':id', $id);
-       $stmnt->bindParam(':nww', $nww1);
-       $stmnt->execute();
+        $sql = "UPDATE `personen` SET `personen`.`ww` = :nww WHERE `personen`.`id`= :id";
+        $stmnt = $this->db->prepare($sql);
+        $stmnt->bindParam(':id', $id);
+        $stmnt->bindParam(':nww', $nww1);
+        $stmnt->execute();
 
         if($stmnt->rowCount() === 1) {
             $this->updateGebruiker();
             return REQUEST_SUCCESS;
         }
-            return REQUEST_NOTHING_CHANGED;
+        
+        return REQUEST_NOTHING_CHANGED;
     }
 }

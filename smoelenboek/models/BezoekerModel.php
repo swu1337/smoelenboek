@@ -34,7 +34,7 @@ class BezoekerModel {
             $stmnt->bindParam(':ww', $ww);
             $stmnt->execute();
 
-            $result = $stmnt->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Persoon');
+            $result = $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__.'\db\Persoon');
 
             if(count($result) === 1) {
                 $this->startSessie();
@@ -51,7 +51,7 @@ class BezoekerModel {
         $sql = "SELECT * FROM `personen` WHERE `personen`.`recht`= 'directeur'";
         $stmnt = $this->db->prepare($sql);
         $stmnt->execute();
-        $contacten = $stmnt->fetchAll(\PDO::FETCH_CLASS,__NAMESPACE__.'\db\Persoon');
+        $contacten = $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__.'\db\Persoon');
 
         return $contacten[0];
     }

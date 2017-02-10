@@ -81,4 +81,3 @@ class Persoon {
         return $this->vnaam . " " . $this->tv . " " . $this->anaam;
     }
 }
-?>

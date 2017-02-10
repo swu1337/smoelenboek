@@ -55,7 +55,7 @@ class LeerlingController {
             $this->action = $action;
             $controller = $this;
         } else {
-            $klasseNaam = __NAMESPACE__.'\\'.ucFirst($control).'Controller';
+            $klasseNaam = __NAMESPACE__ . '\\' . ucFirst($control) . 'Controller';
             $controller = new $klasseNaam($control, $action);
         }
 

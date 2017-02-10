@@ -7,7 +7,7 @@ final class Foto {
     }
 
     public static function isAfbeeldingGestuurd() {
-        if(!isset($_FILES['foto'])){
+        if(!isset($_FILES['foto'])) {
             return IMAGE_NOTHING_UPLOADED;
         }
 
@@ -51,6 +51,7 @@ final class Foto {
             'png'=>'image/png',
             'gif'=>'image/jpg',
         );
+        
         $ext = array_search($mime, $allowed, true);
         if($ext === false) {
             return false;
