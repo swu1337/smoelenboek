@@ -19,9 +19,7 @@
                 <?= isset($boodschap)?"<p id = 'boodschap'><em>$boodschap</em></p>":""?>
             </div>
             <figure>
-                <a href="?control=medewerker&action=foto" title='klik om je foto te wijzigen'>
                     <img src="img/personen/<?=$gebruiker->getFoto()?>">
-                </a>
             </figure>
         </header>
         <section>

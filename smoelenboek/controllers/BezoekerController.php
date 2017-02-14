@@ -9,7 +9,7 @@ class BezoekerController {
     private $control;
     private $view;
     private $model;
-    
+
     public function __construct($control, $action, $message = NULL) {
         $this->control = $control;
         $this->action = $action;
@@ -63,7 +63,6 @@ class BezoekerController {
                 case REQUEST_SUCCESS:
                     $this->view->set("boodschap","Welkom op de smoelenboek van ROC Mondriaan, Veel Kijkplezier!");
                     $recht = $this->model->getGebruiker()->getRecht();
-
                     $this->forward("default", $recht);
                     break;
                 case REQUEST_FAILURE_DATA_INVALID:
@@ -79,7 +78,24 @@ class BezoekerController {
     }
 
     private function defaultAction() {
-       $this->view->set("directeur", $this->model->getDirecteur());
+        if($this->model->isPostLeeg()) {
+            $this->view->set("boodschap","Vul uw gegevens in");
+        } else {
+            switch($this->model->controleerInloggen()) {
+                case REQUEST_SUCCESS:
+                    $this->view->set("boodschap","Welkom op de smoelenboek van ROC Mondriaan, Veel Kijkplezier!");
+                    $recht = $this->model->getGebruiker()->getRecht();
+                    $this->forward("default", $recht);
+                    break;
+                case REQUEST_FAILURE_DATA_INVALID:
+                    $this->view->set("boodschap","Gegevens kloppen niet. Probeer opnieuw.");
+                    break;
+                case REQUEST_FAILURE_DATA_INCOMPLETE:
+                    $this->view->set("boodschap","niet alle gegevens ingevuld");
+                    break;
+            }
+        }
+        $this->view->set("directeur", $this->model->getDirecteur());
     }
 
     private function directeurAction() {

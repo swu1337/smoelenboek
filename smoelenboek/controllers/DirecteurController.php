@@ -128,7 +128,7 @@ class DirecteurController {
 
     private function wijzigenAction() {
         $gebruiker = $this->model->getGebruiker();
-        
+
         if(!$this->model->isPostLeeg()) {
             switch($this->model->wijzigGegevens($gebruiker->getId())) {
                 case REQUEST_SUCCESS:
@@ -147,7 +147,7 @@ class DirecteurController {
         } else {
             $this->view->set("boodschap","Wijzig hier je gegevens");
         }
-        
+
         $this->view->set('gebruiker', $this->model->getGebruiker());
         $this->view->set('klassen', $this->model->getKlassen());
     }
@@ -196,12 +196,12 @@ class DirecteurController {
             $this->view->set('klassen', $this->model->getKlassen());
         }
     }
-    
+
     public function klasbeheerAction() {
         $this->view->set('gebruiker', $this->model->getGebruiker());
         $this->view->set('klassen', $this->model->getKlassen());
     }
-    
+
     public function createKlasAction() {
 
         if($this->model->isPostLeeg()) {
@@ -231,7 +231,7 @@ class DirecteurController {
         $this->view->set('klassen', $this->model->getKlassen());
         $this->view->set('mentors', $this->model->getDocenten('Beschikbaar'));
     }
-    
+
     public function updateKlasAction() {
         if($this->model->isPostLeeg()) {
             $this->view->set('boodschap','Wijzig gegevens van de klas');
@@ -268,19 +268,19 @@ class DirecteurController {
         }
 
     }
-    
+
     public function leerlingbeheerAction() {
         $this->view->set('gebruiker', $this->model->getGebruiker());
         $this->view->set('klassen', $this->model->getKlassen());
         $this->view->set('leerlingen', $this->model->getAlleLeerlingen());
     }
-    
+
     public function createLeerlingAction() {
         $this->view->set('gebruiker', $this->model->getGebruiker());
         $this->view->set('klassen', $this->model->getKlassen());
-        
+
         if($this->model->isPostLeeg()) {
-           $this->view->set("boodschap","Vul gegevens in van een nieuwe medewerker");
+           $this->view->set("boodschap","Vul gegevens in van een nieuwe leerling");
         } else {
             switch($this->model->createData()) {
                 case IMAGE_FAILURE_SIZE_EXCEEDED:
@@ -306,14 +306,14 @@ class DirecteurController {
             }
         }
     }
-    
+
     public function updateLeerlingAction() {
         $leerling = $this->model->getPersoonById(filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT));
-        
+
         $this->view->set('leerling', $leerling);
         $this->view->set('gebruiker', $this->model->getGebruiker());
         $this->view->set('klassen', $this->model->getKlassen());
-        
+
         if($this->model->isPostLeeg()) {
            $this->view->set("boodschap","Wijzig hier de cursus gegevens");
         } else {
@@ -331,7 +331,7 @@ class DirecteurController {
                 case REQUEST_FAILURE_DATA_INVALID:
                     $this->view->set("boodschap","Fout invoer");
                     break;
-            }    
+            }
         }
     }
 
@@ -344,9 +344,9 @@ class DirecteurController {
     public function createDocentAction() {
         $this->view->set('gebruiker', $this->model->getGebruiker());
         $this->view->set('klassen', $this->model->getKlassen());
-        
+
         if($this->model->isPostLeeg()) {
-           $this->view->set("boodschap","Vul gegevens in van een nieuwe medewerker");
+           $this->view->set("boodschap","Vul gegevens in van een nieuwe docent");
         } else {
             switch($this->model->createData()) {
                 case IMAGE_FAILURE_SIZE_EXCEEDED:
@@ -375,11 +375,11 @@ class DirecteurController {
 
     public function updateDocentAction() {
         $docent = $this->model->getPersoonById(filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT));
-        
+
         $this->view->set('docent', $docent);
         $this->view->set('gebruiker', $this->model->getGebruiker());
         $this->view->set('klassen', $this->model->getKlassen());
-        
+
         if($this->model->isPostLeeg()) {
            $this->view->set("boodschap","Wijzig hier de cursus gegevens");
         } else {
@@ -397,7 +397,7 @@ class DirecteurController {
                 case REQUEST_FAILURE_DATA_INVALID:
                     $this->view->set("boodschap","Fout invoer");
                     break;
-            }    
+            }
         }
     }
 

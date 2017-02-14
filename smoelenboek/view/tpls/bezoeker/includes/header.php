@@ -11,9 +11,9 @@
     <body>
         <header class="header__container">
             <div class="d-flex align-items-center flex-column header__items">
-                <h1 class="display-4 text-white text-center">Welcome bij het Smoelenboek</h1>
+                <h1 class="display-4 text-white text-center">Welkom bij het Smoelenboek</h1>
                 <p class="lead text-white">Smoelenboek van Mondriaan ICT</p>
-                <button type="button" class="btn btn-primary btn-lg">Login</button>
+                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
             </div>
         </header>
         <div class="jumbotron jumbotron-fluid">
@@ -23,41 +23,37 @@
             </div>
         </div>
 
-        <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Login</button>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Use Your Credential To Login</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-          <div class="container">
-  <form action="#">
-    <div class="form-group row">
-      <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-      </div>
-    </div>
-    <div class="form-group row">
-      <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
-      <div class="col-sm-10">
-        <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="submit" class="btn btn-primary">Save changes</button>
-    </div>
-
-</div>
-    </div>
-    </div>
-  </div>
-</div>
+        <!-- Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="loginModalLabel">Use Your Credential To Login</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <form method="post" autocomplete="off">
+                                <div class="form-group row">
+                                    <label for="inputUsername" class="col-sm-2 col-form-label">Username</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="gn" class="form-control" id="inputUsername" placeholder="Username" value="<?= isset($gn)? $gn : "" ;?>" required="required">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" name="ww" class="form-control" id="inputPassword" placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="form-group row justify-content-end">
+                                    <div class="offset-sm-2 col-sm-10 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
