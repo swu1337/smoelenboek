@@ -4,25 +4,20 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Smoelenboek</title>
-        <link rel="stylesheet" href="css/normalize.css" type="text/css">
+        <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-        <link rel="stylesheet" href="css/telefoonlijst.css" type="text/css">
-        <link rel="stylesheet" href="css/bezoeker.css" type="text/css">
+        <!-- <link rel="stylesheet" href="css/telefoonlijst.css" type="text/css"> -->
+        <link rel="stylesheet" href="css/main.css" type="text/css" />
+        <link rel="stylesheet" href="css/bezoeker.css" type="text/css" />
     </head>
     <body>
-        <header class="header__container">
+        <header class="header__container mb-5">
             <div class="d-flex align-items-center flex-column header__items">
                 <h1 class="display-4 text-white text-center">Welkom bij het Smoelenboek</h1>
                 <p class="lead text-white">Smoelenboek van Mondriaan ICT</p>
                 <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
             </div>
         </header>
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container-fluid">
-            <h1 class="display-3">Fluid jumbotron</h1>
-            <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
-            </div>
-        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
