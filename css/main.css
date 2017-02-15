@@ -1,4 +1,4 @@
-@import url("header.css");
-@import url("card.css");
-@import url("divider.css");
-@import url("footer.css");
+@import url("partials/header.css");
+@import url("partials/card.css");
+@import url("partials/divider.css");
+@import url("partials/footer.css");

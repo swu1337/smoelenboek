@@ -1,5 +1,7 @@
 .footer__wrapper {
     background-color: #ececec;
+    border: 0;
+    border-top: 1px solid #999;
 }
 
 .footer__paragraph {
