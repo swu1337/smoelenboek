@@ -1,10 +1,10 @@
 .footer__wrapper {
-    background-color: #ececec;
+    background-color: rgba(0,0,0,0.2);
     border: 0;
     border-top: 1px solid #999;
 }
 
-.footer__paragraph {
-    margin-bottom: 0px;
-    padding: 1rem 0px;
+.footer__social-media{
+    display: flex;
+    justify-content: flex-end;
 }
