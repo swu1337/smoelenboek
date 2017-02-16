@@ -5,14 +5,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Smoelenboek</title>
         <link rel="stylesheet" href="css/normalize.css" type="text/css"/>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
         <!-- <link rel="stylesheet" href="css/telefoonlijst.css" type="text/css"> -->
         <link rel="stylesheet" href="css/main.css" type="text/css" />
         <link rel="stylesheet" href="css/bezoeker.css" type="text/css" />
     </head>
     <body>
         <header class="header__container mb-5">
-            <div class="alert alert-warning alert-dismissible fade show fixed-top" role="alert">
+            <div class="alert alert-warning alert-dismissible fade show fixed-top rounded-0" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
