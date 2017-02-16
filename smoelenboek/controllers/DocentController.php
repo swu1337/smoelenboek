@@ -49,7 +49,7 @@ class DocentController {
         $this->view->setControl($this->control);
         $this->view->toon();
     }
-
+    
     private function forward($action, $control = null) {
         if($control === null) {
             $this->action = $action;

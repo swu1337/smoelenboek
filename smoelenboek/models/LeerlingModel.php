@@ -167,7 +167,7 @@ class LeerlingModel {
             $this->updateGebruiker();
             return REQUEST_SUCCESS;
         }
-        
+
         return REQUEST_NOTHING_CHANGED;
     }
 }

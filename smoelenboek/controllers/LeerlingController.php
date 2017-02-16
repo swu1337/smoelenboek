@@ -136,11 +136,10 @@ class LeerlingController {
     public function klasDetailsAction() {
         if(!empty($_GET['kid'])) {
             $id = intval($_GET['kid']);
-            $gebruiker = $this->model->getGebruiker();
             $this->view->set('klas1', $this->model->getKlasById($id));
             $this->view->set('mentor', $this->model->getMentor($id));
             $this->view->set('klasgenoten', $this->model->getLeerlingen($id));
-            $this->view->set('gebruiker', $gebruiker);
+            $this->view->set('gebruiker', $this->model->getGebruiker());
             $this->view->set('klassen', $this->model->getKlassen());
         }
     }

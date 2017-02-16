@@ -12,6 +12,12 @@
     </head>
     <body>
         <header class="header__container mb-5">
+            <div class="alert alert-warning alert-dismissible fade show fixed-top" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <strong>Holy guacamole!</strong><?= $boodschap; ?>
+            </div>
             <div class="d-flex align-items-center flex-column header__items">
                 <h1 class="display-4 text-white text-center">Welkom bij het Smoelenboek</h1>
                 <p class="lead text-white">Smoelenboek van Mondriaan ICT</p>
