@@ -56,24 +56,21 @@ class BezoekerController {
     }
 
     private function defaultAction() {
-        if($this->model->isPostLeeg()) {
-            $this->view->set("boodschap","Vul uw gegevens in");
-        } else {
+        if(!$this->model->isPostLeeg()) {
             switch($this->model->controleerInloggen()) {
                 case REQUEST_SUCCESS:
-                    $this->view->set("boodschap","Welkom op de smoelenboek van ROC Mondriaan, Veel Kijkplezier!");
+                    $this->view->set("boodschap", "Welkom op de smoelenboek van ROC Mondriaan, Veel Kijkplezier!");
                     $recht = $this->model->getGebruiker()->getRecht();
                     $this->forward("default", $recht);
                     break;
                 case REQUEST_FAILURE_DATA_INVALID:
-                    $this->view->set("boodschap","Gegevens kloppen niet. Probeer opnieuw.");
+                    $this->view->set("boodschap", "Gegevens kloppen niet. Probeer opnieuw.");
                     break;
                 case REQUEST_FAILURE_DATA_INCOMPLETE:
-                    $this->view->set("boodschap","niet alle gegevens ingevuld");
+                    $this->view->set("boodschap", "Niet alle gegevens ingevuld.");
                     break;
             }
         }
-        $this->view->set("directeur", $this->model->getDirecteur());
     }
 
     private function directeurAction() {

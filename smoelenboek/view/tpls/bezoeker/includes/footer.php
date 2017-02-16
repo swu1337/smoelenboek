@@ -5,7 +5,7 @@
                         <div class="footer__column mt-4">
                             <p class="lead"><i class="fa fa-envelope fa-lg pr-2" aria-hidden="true"></i>info@rocmondriaan.nl</p>
                             <p class="lead"><i class="fa fa-location-arrow fa-lg pr-2" aria-hidden="true"></i>Tinwerf 16, 2544 ED Den Haag</p>
-                            <p class="lead"><i class="fa fa-address-book fa-lg pr-2" aria-hidden="true"></i> +31 088 666 3600</p>
+                            <p class="lead"><i class="fa fa-address-book fa-lg pr-2" aria-hidden="true"></i>+31 088 666 3600</p>
                         </div>
                         <div class="d-flex flex-row justify-content-end flex-wrap">
                             <p class="lead mr-auto p-2 align-self-end m-0">&copy; Afdeling Applicatieontwikkelaar</p>

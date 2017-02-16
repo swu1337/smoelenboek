@@ -13,12 +13,20 @@
     </head>
     <body>
         <header class="header__container mb-5">
-            <div class="alert alert-warning alert-dismissible fade show fixed-top rounded-0" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <strong>Holy guacamole!</strong><?= $boodschap; ?>
+            <?php if(isset($boodschap)): ?>
+            <div class="container-fluid fixed-top">
+                <div class="row justify-content-center">
+                    <div class="col-md-9">
+                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <strong>Holy guacamole! </strong><?= $boodschap; ?>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <?php endif; ?>
             <div class="header__logo">
                 <svg version="1.1" id="CMYK" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="85 82 255.335 105.334" enable-background="new 85 82 255.335 105.334" xml:space="preserve">
                     <g>

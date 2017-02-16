@@ -102,3 +102,7 @@ VALUES
 ('LeerlingV60', 'LeerlingTV60', 'LeerlingA60', 'L60A60', @DEFAULT_PASSWORD, 'leerling60@mondriaanict.nl', '0687654023', @DEFAULT_IMAGE, NULL, 'leerlingstraat 123', 'leerlingplaats', 6, 'leerling'),
 /*--- -Directeur- ---*/
 ('Directeur', 'DirecteurTV', 'DirecteurA', 'DDD', @DEFAULT_PASSWORD, 'directeur@mondriaanict.nl', '0612312123', @DEFAULT_IMAGE, NULL, 'directeurstraat 123', 'directeurplaats', NULL, 'directeur');
+
+
+/*--- -Assign Teachers to Class- ---*/
+UPDATE `klassen` SET `klassen`.`mentor_id` = CASE `klassen`.`id` WHEN 1 THEN 6 WHEN 2 THEN 5 WHEN 3 THEN 4 WHEN 4 THEN 3 WHEN 5 THEN 2 WHEN 6 THEN 1 END WHERE `klassen`.`id` IN (1, 2, 3, 4, 5, 6);
