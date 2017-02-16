@@ -64,6 +64,8 @@ class DocentController {
     }
 
     private function uitloggenAction() {
+        list($url, $substring) = explode("?", $_SERVER['HTTP_REFERER']);
+        header("Location: $url");
         $this->model->uitloggen();
         $this->forward('default', 'bezoeker');
     }

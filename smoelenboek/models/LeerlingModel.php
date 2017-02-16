@@ -42,8 +42,8 @@ class LeerlingModel {
     }
 
     public function uitloggen() {
-       $_SESSION = array();
-       session_destroy();
+        $_SESSION = array();
+        session_destroy();
     }
 
     public function isPostLeeg() {
