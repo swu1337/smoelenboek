@@ -88,7 +88,13 @@ class LeerlingModel {
         $stmnt = $this->db->prepare($sql);
         $stmnt->bindParam(':klas_id', $klas_id);
         $stmnt->execute();
-        return $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Persoon')[0];
+        $mentor = $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Persoon');
+
+        if (count($mentor) === 1) {
+            return $mentor[0];
+        } else {
+            return NULL;
+        }
     }
 
     private function updateGebruiker() {

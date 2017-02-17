@@ -5,9 +5,9 @@ const DATA_SOURCE_NAME =  'mysql:dbname=smoelenboek;host=127.0.0.1;charset=utf8'
 const DB_USERNAME = 'root';
 const DB_PASSWORD = '';
 const DEFAULT_ROLE = 'bezoeker';
-const DEFAULT_PASSWORD = '@DEFAULT_PASSWORD';
+const DEFAULT_PASSWORD = 'qwerty';
 const IMAGE_LOCATION = 'img/personen/';
-const IMAGE_DEFAULT = "default.jpg";
+const IMAGE_DEFAULT = "default.png";
 
 const REQUEST_SUCCESS = 1;
 const REQUEST_FAILURE_DATA_INVALID =2;

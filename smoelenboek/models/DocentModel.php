@@ -111,15 +111,15 @@ class DocentModel {
         return $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Klas')[0];
     }
 
-    public function getLeerlingById($ll_id) {
-        $sql = "SELECT * FROM `personen` WHERE `personen`.`id` = :ll_id";
+    public function getPersoonById($id) {
+        $sql = "SELECT * FROM `personen` WHERE `personen`.`id` = :id";
         $stmnt = $this->db->prepare($sql);
-        $stmnt->bindParam(':ll_id', $ll_id);
+        $stmnt->bindParam(':id', $id);
         $stmnt->execute();
 
         return $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Persoon')[0];
     }
-
+    
     public function getLeerlingen($klas_id) {
         $sql = "SELECT * FROM `personen` WHERE klas_id = :klas_id";
         $stmnt = $this->db->prepare($sql);
@@ -134,7 +134,13 @@ class DocentModel {
         $stmnt = $this->db->prepare($sql);
         $stmnt->bindParam(':klas_id', $klas_id);
         $stmnt->execute();
-        return $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Persoon')[0];
+        $mentor = $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Persoon');
+
+        if (count($mentor) === 1) {
+            return $mentor[0];
+        } else {
+            return NULL;
+        }
     }
 
     private function updateGebruiker() {

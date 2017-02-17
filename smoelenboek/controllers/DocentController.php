@@ -84,6 +84,7 @@ class DocentController {
             $mentor = $gebruiker;
             $leerlingen = $this->model->getLeerlingen($this->model->getKlasByMentor($mentor->getId())->getId());
         }
+        
         $this->view->set('isMentor', $isMentor);
         $this->view->set('mentor', $mentor);
         $this->view->set('klasgenoten', $leerlingen);
@@ -168,7 +169,7 @@ class DocentController {
         if(!empty($_GET['lid'])) {
             $id = intval($_GET['lid']);
             $gebruiker = $this->model->getGebruiker();
-            $leerling = $this->model->getLeerlingById($id);
+            $leerling = $this->model->getPersoonById($id);
             $isMentor = $this->model->isMentor($gebruiker->getId(), $leerling->getKlas_id());
 
             if(!$this->model->isPostLeeg()) {

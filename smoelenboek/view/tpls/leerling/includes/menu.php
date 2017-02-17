@@ -14,7 +14,7 @@
                 <li>Klas
                     <ul>
                         <?php foreach($klassen as $klas): ?>
-                        <li><a href="?control=leerling&action=klasdetails&kid=<?= $klas->getId();?>"><?= $klas->getNaam(); ?></a></li>
+                        <li><a href="?control=leerling&action=klasdetails&kid=<?= $klas->getId();?>"><?= $klas->getNaam(); ?><?= $klas->getId() === $gebruiker->getKlas_id() ? '(mijn klas)' : '';?> </a></li>
                         <?php endforeach;?>
                     </ul>
                 </li>

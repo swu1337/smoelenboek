@@ -19,7 +19,7 @@
                 <?= isset($boodschap)?"<p id = 'boodschap'><em>$boodschap</em></p>":""?>
             </div>
             <figure>
-                    <img src="img/personen/<?=$gebruiker->getFoto()?>">
+                    <img src="<?=$gebruiker->getFoto()?>">
             </figure>
         </header>
         <section>

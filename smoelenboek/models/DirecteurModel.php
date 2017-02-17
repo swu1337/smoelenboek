@@ -111,7 +111,7 @@ class DirecteurModel {
         $sql = "SELECT * FROM `klassen`";
 
         if($first) {
-            $sql = "SELECT * FROM `klassen` LIMIT 1";
+            $sql = "SELECT `klassen`.* FROM `klassen` JOIN `personen` ON `klassen`.`mentor_id` = `personen`.`id` LIMIT 1";
         }
 
         $stmnt = $this->db->prepare($sql);
@@ -220,7 +220,7 @@ class DirecteurModel {
 
         return $stmnt->fetchAll(\PDO::FETCH_CLASS, __NAMESPACE__ . '\db\Persoon')[0];
     }
-
+    
     public function createData() {
         switch (filter_input(INPUT_GET, 'prop')) {
             case 'leerling':               
