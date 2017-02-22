@@ -242,7 +242,6 @@ class DirecteurModel {
                 }
 
                 if($email === false || $klas === false) {
-                    echo 'dede';
                     return REQUEST_FAILURE_DATA_INVALID;
                 }
 
@@ -278,10 +277,8 @@ class DirecteurModel {
                 $stmnt->bindParam(':foto', $foto);
                 
                 try {
-                    var_dump($stmnt);
                     $stmnt->execute();
                 } catch(\PDOEXception $e) {
-                    var_dump($e); 
                     return REQUEST_FAILURE_DATA_INVALID;
                 }
 
