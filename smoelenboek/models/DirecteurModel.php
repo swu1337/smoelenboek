@@ -242,6 +242,7 @@ class DirecteurModel {
                 }
 
                 if($email === false || $klas === false) {
+                    echo 'dede';
                     return REQUEST_FAILURE_DATA_INVALID;
                 }
 
@@ -255,9 +256,9 @@ class DirecteurModel {
                 }
 
                 if($result === IMAGE_NOTHING_UPLOADED) {
-                    $foto = IMAGE_DEFAULT;
+                    $foto = IMAGE_LOCATION . IMAGE_DEFAULT;
                 } else {
-                    $foto = FOTO::getAfbeeldingNaam();
+                    $foto = IMAGE_LOCATION . FOTO::getAfbeeldingNaam();
                 }
 
                 $sql = "INSERT IGNORE INTO `personen` (vnaam, tv, anaam, gebrnaam, ww, email, telnummer, foto, adres, plaats, klas_id, recht) 
@@ -277,8 +278,10 @@ class DirecteurModel {
                 $stmnt->bindParam(':foto', $foto);
                 
                 try {
+                    var_dump($stmnt);
                     $stmnt->execute();
                 } catch(\PDOEXception $e) {
+                    var_dump($e); 
                     return REQUEST_FAILURE_DATA_INVALID;
                 }
 
@@ -288,7 +291,7 @@ class DirecteurModel {
                     }
                     return REQUEST_SUCCESS;
                 }
-
+                
                 return REQUEST_FAILURE_DATA_INVALID;
                 break;
             case 'docent':
@@ -323,9 +326,9 @@ class DirecteurModel {
                 }
 
                 if($result === IMAGE_NOTHING_UPLOADED) {
-                    $foto = IMAGE_DEFAULT;
+                    $foto = IMAGE_LOCATION . IMAGE_DEFAULT;
                 } else {
-                    $foto = FOTO::getAfbeeldingNaam();
+                    $foto = IMAGE_LOCATION . FOTO::getAfbeeldingNaam();
                 }
 
                 $sql = "INSERT IGNORE INTO `personen` (vnaam, tv, anaam, gebrnaam, ww, email, telnummer, foto, adres, plaats, klas_id, recht) 
@@ -582,7 +585,7 @@ class DirecteurModel {
 
         if($stmnt->rowCount() === 1) {
 
-            if(!empty($fotoNaam) && $fotoNaam !== IMAGE_DEFAULT) {
+            if(!empty($fotoNaam) && $fotoNaam !== IMAGE_LOCATION . IMAGE_DEFAULT) {
                 FOTO::verwijderAfbeelding($fotoNaam);
             }
 
