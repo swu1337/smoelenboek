@@ -73,8 +73,6 @@ final class Foto {
 
     public static function slaAfbeeldingOp($fotoNaam) {
         $foto_tmp_name = $_FILES['foto']['tmp_name'];
-        var_dump($foto_tmp_name);
-        var_dump($fotoNaam);
         $result = \move_uploaded_file($foto_tmp_name, $fotoNaam);
 
         if ($result === false) {
